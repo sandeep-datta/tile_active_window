@@ -2,7 +2,7 @@ h1. Tile Active Window
 
 h2. Introduction
 
-@tile_active_window@ a python script for tiling the currently active window into some preset locations on the screen. It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
+@tile_active_window@ is a python script for tiling the currently active window into some preset locations on the screen. It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
 
 h2. Usage
 

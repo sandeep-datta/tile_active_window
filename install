@@ -42,10 +42,12 @@ def run(args):
 
 def reloadXbindkeysConfig():
     try:
-        print("Asking xbindkeys to reload shortcut configuration.")
-        run(['killall', '-HUP', 'xbindkeys'])
-    except subp.CalledProcessError as e:
-        print("xbindkeys not running. Trying to start the service.")
+        print("Terminating all xbindkeys processes")
+        run(['killall', 'xbindkeys'])
+    except:
+        pass
+    finally:
+        print("Trying to start the xbindkeys service.")
         run(['xbindkeys'])
 
 def main(progPath, args):
