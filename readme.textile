@@ -1,0 +1,54 @@
+h1. Tile Active Window
+
+h2. Introduction
+
+@tile_active_window@ a python program which can be used to tile the currently active window into some preset locations on the screen. It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
+
+h2. Usage
+
+I would recommend installing the tool as described in the installation section. However if you want to use this script yourself you may use it as follows...
+
+bc. tile_active_window <preset_location>
+
+h3. Preset locations (and shortcuts)
+
+* left (Win+Left)
+* top (Win+Up)
+* right (Win+Right)
+* bottom (Win+Down)
+
+The following key bindings should make sense when you try them out.
+
+* q1 (Win+Numpad 5)
+* q2 (Win+Numpad 4)
+* q3 (Win+Numpad 1)
+* q4 (Win+Numpad 2)
+
+
+h3. Logs
+
+Optional debug log location: @/var/log/tile_active_window.log@. You may need to change the value of the DEBUG variable in tile_active_window to @1@ to enable logging. Set it to @0@ to disable logging.
+
+h2. Installation
+
+*Please backup relevant files before installation.*
+
+bc. sudo apt-get install wmctrl xbindkeys
+sudo ./tile_active_window install
+
+p. As part of the installation the tile_active_window script will be copied to @/usr/bin@  and the @.xbindkeysrc@ file will be copied to your @$HOME@ directory.
+
+h2. Troubleshooting
+
+h3. The keyboard shortcuts are not working.
+
+Make sure xbindkeys has been installed and is running.
+
+bc. ps aux| grep xbindkeys
+
+p. If @xbindkeys@ is not running run it using the @xbindkeys@ command. @xbindkeys@ should start automatically after a system restart henceforth.
+
+Also check if @~/.xbindkeysrc@ exists and is valid
+
+bc. ls ~/.xbindkeysrc
+less ~/.xbindkeysrc

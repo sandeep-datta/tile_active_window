@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import stat
+import subprocess as subp
+import shutil as sh
+
+BIN_DIR="/usr/bin"
+
+FILES = [
+            (".xbindkeysrc", os.path.expanduser("~"), 0o644),
+            ("tile_active_window", "/usr/bin", 0o755),
+        ]
+
+def log(*args, **kwargs):
+    #return print(*args, **kwargs)
+    pass
+
+def copy(srcPath, destDir):
+    print("Copying {} => {}".format(srcPath, destDir))
+    sh.copy(srcPath, destDir)
+
+def setPermissions(path, perm):
+    print("Setting permissions for {} to {:o}".format(path, perm))
+    os.chmod(path, perm)
+
+def install_files(srcDir, files):
+    #copy files and set permissions
+    for fileName, dest, perm in files:
+        srcPath = os.path.join(srcDir, fileName)
+        copy(srcPath, dest)
+        destPath = os.path.join(dest, fileName)
+        setPermissions(destPath, perm)
+
+def run(args):
+    log("run({})".format(args))
+    retVal = subp.check_output(args).decode('utf_8', 'replace').strip()
+    if retVal:
+        log(retVal)
+    return retVal
+
+def reloadXbindkeysConfig():
+    try:
+        print("Asking xbindkeys to reload shortcut configuration.")
+        run(['killall', '-HUP', 'xbindkeys'])
+    except subp.CalledProcessError as e:
+        print("xbindkeys not running. Trying to start the service.")
+        run(['xbindkeys'])
+
+def main(progPath, args):
+    baseDir = os.path.dirname(progPath)
+    install_files(baseDir, FILES)
+    reloadXbindkeysConfig()
+
+if __name__ == '__main__':
+    try:
+        main(sys.argv[0], sys.argv[1:])
+    except Exception as e:
+        print(e)
+    except:
+        print("ERROR: Unknown error.")

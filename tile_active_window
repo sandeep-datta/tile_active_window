@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+import stat
+import subprocess as subp
+import shutil as sh
+
+from datetime import datetime
+from collections import namedtuple
+
+DEBUG=0
+LOGFILE="/var/log/tile_active_window.log"
+
+Rect = namedtuple('Rect', 'x y width height')
+
+def _log(args, end="\n", file=sys.stdout):
+    if file != sys.stdout:
+        print(args, end=end, file=sys.stdout)
+    print(args, end=end, file=file)
+
+def log(args):
+    if DEBUG:
+        try:
+            with open(LOGFILE, "a") as f:
+                _log("[{:%d%b%Y %H:%M:%S.%f}] ".format(datetime.now()), end="", file=f)
+                _log(args, file=f)
+        except:
+            pass
+
+def run(args):
+    log("run({})".format(args))
+    retVal = subp.check_output(args).decode('utf_8', 'replace')
+    log("return value:{}".format(retVal))
+    return retVal
+
+def _moveResizeActiveWindow(rect):
+    run(['wmctrl', '-r', ':ACTIVE:', '-b', 'remove,maximized_vert,maximized_horz,fullscreen'])
+    run(['wmctrl', '-r', ':ACTIVE:', '-e', '0,{},{},{},{}'.format(rect.x, rect.y, rect.width, rect.height)])
+
+def maximizeActiveWindow():
+    run(['wmctrl', '-r', ':ACTIVE:', '-b', 'add,maximized_vert,maximized_horz'])
+
+
+def moveResizeActiveWindow(sector, wa, title_bar_height):
+    log("sector:{}".format(sector))
+
+    x = 0
+    y = 0
+    w = wa.width
+    h = wa.height
+
+    if sector == "left":
+        w /= 2
+    elif sector == "top":
+        h /= 2
+    elif sector == "right":
+        w /= 2
+        x = w
+    elif sector == "bottom":
+        h /= 2
+        y = h
+    elif sector == "q1":
+        w /= 2
+        h /= 2
+        x = w
+    elif sector == "q2":
+        w /= 2
+        h /= 2
+    elif sector == "q3":
+        w /= 2
+        h /= 2
+        y = h
+    elif sector == "q4":
+        w /= 2
+        h /= 2
+        x = w
+        y = h
+    else:
+        log("ERROR:Invalid sector.")
+    tbh = title_bar_height
+    _moveResizeActiveWindow(Rect(int(x), int(y+tbh), int(w), int(h-tbh)))
+
+def getActiveDesktopWorkingArea():
+    lines = run(['wmctrl', '-d']).splitlines()
+
+    for line in lines:
+        field = line.split()
+        if field[1] == '*':
+            x,y = map(int, field[7].split(','))
+            w,h = map(int, field[8].split('x'))
+
+            return Rect(x, y, w, h)
+    return None
+
+def main(progPath, args):
+    log("----------------START-----------------")
+    wa = getActiveDesktopWorkingArea()
+    log("Active window working area:{}".format(wa))
+    sector = args[0]
+
+    if sector == "maximize":
+        maximizeActiveWindow()
+    else:
+        moveResizeActiveWindow(sector, wa, title_bar_height=25)
+    log("----------------END-----------------\n")
+
+if __name__ == '__main__':
+    try:
+        main(sys.argv[0], sys.argv[1:])
+    except Exception as e:
+        print(e)
+    except:
+        print("ERROR: Unknown error.")
