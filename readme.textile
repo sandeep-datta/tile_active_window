@@ -2,7 +2,11 @@ h1. Tile Active Window
 
 h2. Introduction
 
-@tile_active_window@ is a python script for tiling the currently active window into some preset locations on the screen. It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
+I tried a tiling window manager (xmonad) but found the concept to be too restrictive. Since then I have discovered that I don't really need a tiling window manager for my daily needs but something which can tile windows for me conveniently within a regular window manager. @tile_active_window@ is my attempt at realizing this goal.
+
+It is a python script for tiling the currently active window into preset locations on the screen using keyboard shortcuts (aka hotkeys).
+
+It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
 
 h2. Usage
 
@@ -35,9 +39,11 @@ h2. Installation
 
 *Please backup relevant files before installation.*
 
-You can either download a release package or clone the git repository.
+Run the following commands in a console to install the utility. I am assuming you are on a Debian/Ubuntu based Linux distro.
 
-bc. sudo apt-get install wmctrl xbindkeys
+bc. sudo apt-get install wmctrl xbindkeys git
+git clone git@github.com:SDX2000/tile_active_window.git
+cd tile_active_window
 sudo ./install
 
 p. As part of the installation the tile_active_window script will be copied to @/usr/bin@  and the @.xbindkeysrc@ file will be copied to your @$HOME@ directory.
@@ -56,3 +62,7 @@ Also check if @~/.xbindkeysrc@ exists and is valid
 
 bc. ls ~/.xbindkeysrc
 less ~/.xbindkeysrc
+
+h2. Known issues
+
+* Does not work as expected on a multi-monitor setup. If you have any hints on how to make this work please let me know!
