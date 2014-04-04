@@ -30,7 +30,6 @@ The following key bindings should make sense when you try them out.
 
 * maximize (Win+Numpad 0)
 
-
 h3. Logs
 
 Optional debug log location: @/var/log/tile_active_window.log@. You may need to change the value of the DEBUG variable in tile_active_window to @1@ to enable logging. Set it to @0@ to disable logging.
@@ -41,7 +40,7 @@ h2. Installation
 
 Run the following commands in a console to install the utility. I am assuming you are on a Debian/Ubuntu based Linux distro.
 
-bc. sudo apt-get install wmctrl xbindkeys git
+bc. sudo apt-get install wmctrl xbindkeys python3 git
 git clone git@github.com:SDX2000/tile_active_window.git
 cd tile_active_window
 sudo ./install
@@ -63,6 +62,12 @@ Also check if @~/.xbindkeysrc@ exists and is valid
 bc. ls ~/.xbindkeysrc
 less ~/.xbindkeysrc
 
-h2. Known issues
+h2. Known Issues
 
 * Does not work as expected on a multi-monitor setup. If you have any hints on how to make this work please let me know!
+
+h2. Software Requirements
+
+* Linux
+* wmctrl, xbindkeys
+* python 3 (tested using python 3.3)
