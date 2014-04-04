@@ -38,7 +38,7 @@ h2. Installation
 You can either download a release package or clone the git repository.
 
 bc. sudo apt-get install wmctrl xbindkeys
-sudo ./tile_active_window install
+sudo ./install
 
 p. As part of the installation the tile_active_window script will be copied to @/usr/bin@  and the @.xbindkeysrc@ file will be copied to your @$HOME@ directory.
 
