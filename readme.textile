@@ -2,7 +2,7 @@ h1. Tile Active Window
 
 h2. Introduction
 
-I tried a tiling window manager (xmonad) but found the concept to be too restrictive. Since then I have discovered that I don't really need a tiling window manager for my daily needs but something which can tile windows for me conveniently within a regular window manager. @tile_active_window@ is my attempt at realizing this goal.
+I tried a tiling window manager (xmonad) once but found the concept to be too restrictive. Since then I have discovered that I don't really need a tiling window manager for my daily needs but something which can tile windows for me conveniently within a regular window manager. @tile_active_window@ is my attempt at realizing this goal.
 
 It is a python script for tiling the currently active window into preset locations on the screen using keyboard shortcuts (aka hotkeys).
 
