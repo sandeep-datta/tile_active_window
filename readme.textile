@@ -2,7 +2,7 @@ h1. Tile Active Window
 
 h2. Introduction
 
-@tile_active_window@ a python program which can be used to tile the currently active window into some preset locations on the screen. It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
+@tile_active_window@ a python script for tiling the currently active window into some preset locations on the screen. It uses the @wmctrl@ Linux utility to resize and move windows and the @xbindkeys@ utility to bind itself to keyboard shortcuts.
 
 h2. Usage
 
@@ -24,6 +24,8 @@ The following key bindings should make sense when you try them out.
 * q3 (Win+Numpad 1)
 * q4 (Win+Numpad 2)
 
+* maximize (Win+Numpad 0)
+
 
 h3. Logs
 
@@ -32,6 +34,8 @@ Optional debug log location: @/var/log/tile_active_window.log@. You may need to 
 h2. Installation
 
 *Please backup relevant files before installation.*
+
+You can either download a release package or clone the git repository.
 
 bc. sudo apt-get install wmctrl xbindkeys
 sudo ./tile_active_window install
