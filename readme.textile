@@ -40,10 +40,10 @@ h2. Installation
 
 Run the following commands in a console to install the utility. I am assuming you are on a Debian/Ubuntu based Linux distro.
 
-bc. sudo apt-get install wmctrl xbindkeys python3 git
-git clone git@github.com:SDX2000/tile_active_window.git
-cd tile_active_window
-sudo ./install
+bc. wget https://github.com/SDX2000/tile_active_window/raw/master/autoinstall
+./autoinstall
+
+p. If you are on some other distro download the autoinstall file as above and make appropriate changes for your distro (should be easy).
 
 p. As part of the installation the tile_active_window script will be copied to @/usr/bin@  and the @.xbindkeysrc@ file will be copied to your @$HOME@ directory.
 

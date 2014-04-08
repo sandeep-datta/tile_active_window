@@ -1,0 +1,12 @@
+#!/bin/bash
+
+sudo apt-get -y install wmctrl xbindkeys python3 git
+
+git clone git@github.com:SDX2000/tile_active_window.git
+
+cd tile_active_window
+
+git submodule init
+git submodule update
+
+sudo ./install
