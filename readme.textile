@@ -28,7 +28,7 @@ The following key bindings should make sense when you try them out.
 * q3 (Win+Numpad 1)
 * q4 (Win+Numpad 3)
 
-* maximize (Win+Numpad 0)
+* maximize (Win+Numpad 5)
 
 h3. Logs
 
