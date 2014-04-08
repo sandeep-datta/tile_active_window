@@ -7,8 +7,6 @@ import stat
 import subprocess as subp
 import shutil as sh
 
-BIN_DIR="/usr/bin"
-
 PRIVILEGED_FILES = [
             ("tile_active_window", "/usr/bin/tile_active_window", 0o755),
         ]
@@ -47,7 +45,7 @@ def drop_privileges():
     os.setgid(pwnam.pw_gid)
     os.setuid(pwnam.pw_uid)
 
-    # Ensure a very conservative umask
+    # Ensure a reasonable umask
     old_umask = os.umask(0o22)
 
 def install_files(srcDir, files):
