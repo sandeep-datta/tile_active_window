@@ -2,35 +2,59 @@
 
 import os
 import sys
+import pwd
 import stat
 import subprocess as subp
 import shutil as sh
 
 BIN_DIR="/usr/bin"
 
+PRIVILEGED_FILES = [
+            ("tile_active_window", "/usr/bin/tile_active_window", 0o755),
+        ]
+
 FILES = [
-            (".xbindkeysrc", os.path.expanduser("~"), 0o644),
-            ("tile_active_window", "/usr/bin", 0o755),
+            ("xbindkeys.rc", os.path.join(os.path.expanduser("~"), ".xbindkeysrc"), 0o644),
         ]
 
 def log(*args, **kwargs):
     #return print(*args, **kwargs)
     pass
 
-def copy(srcPath, destDir):
-    print("Copying {} => {}".format(srcPath, destDir))
-    sh.copy(srcPath, destDir)
+def copyfile(srcPath, destPath):
+    print("Copying {} => {}".format(srcPath, destPath))
+    sh.copyfile(srcPath, destPath)
 
 def setPermissions(path, perm):
     print("Setting permissions for {} to {:o}".format(path, perm))
     os.chmod(path, perm)
 
+#Throws OSError exception (it will be thrown when the process is not allowed
+#to switch its effective UID or GID):
+def drop_privileges():
+    if os.getuid() != 0:
+        # We're not root so, like, whatever dude
+        return
+
+    # Get the uid/gid from the name
+    user_name = os.getenv("SUDO_USER")
+    pwnam = pwd.getpwnam(user_name)
+
+    # Remove group privileges
+    os.setgroups([])
+
+    # Try setting the new uid/gid
+    os.setgid(pwnam.pw_gid)
+    os.setuid(pwnam.pw_uid)
+
+    # Ensure a very conservative umask
+    old_umask = os.umask(0o22)
+
 def install_files(srcDir, files):
     #copy files and set permissions
-    for fileName, dest, perm in files:
+    for fileName, destPath, perm in files:
         srcPath = os.path.join(srcDir, fileName)
-        copy(srcPath, dest)
-        destPath = os.path.join(dest, fileName)
+        copyfile(srcPath, destPath)
         setPermissions(destPath, perm)
 
 def run(args):
@@ -52,6 +76,8 @@ def reloadXbindkeysConfig():
 
 def main(progPath, args):
     baseDir = os.path.dirname(progPath)
+    install_files(baseDir, PRIVILEGED_FILES)
+    drop_privileges()
     install_files(baseDir, FILES)
     reloadXbindkeysConfig()
 
