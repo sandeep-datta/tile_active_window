@@ -41,6 +41,7 @@ h2. Installation
 Run the following commands in a console to install the utility. I am assuming you are on a Debian/Ubuntu based Linux distro.
 
 bc. wget https://github.com/SDX2000/tile_active_window/raw/master/autoinstall
+chmod +x autoinstall
 ./autoinstall
 
 p. If you are on some other distro download the autoinstall file as above and make appropriate changes for your distro (should be easy).
