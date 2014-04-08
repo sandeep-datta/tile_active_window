@@ -16,17 +16,17 @@ bc. tile_active_window <preset_location>
 
 h3. Preset locations (and shortcuts)
 
-* left (Win+Left)
-* top (Win+Up)
-* right (Win+Right)
-* bottom (Win+Down)
+* left (Win+Left or Win+Numpad 4)
+* top (Win+Up or Win+Numpad 8)
+* right (Win+Right or Win+Numpad 6)
+* bottom (Win+Down or Win+Numpad 2)
 
 The following key bindings should make sense when you try them out.
 
-* q1 (Win+Numpad 5)
-* q2 (Win+Numpad 4)
+* q1 (Win+Numpad 9)
+* q2 (Win+Numpad 7)
 * q3 (Win+Numpad 1)
-* q4 (Win+Numpad 2)
+* q4 (Win+Numpad 3)
 
 * maximize (Win+Numpad 0)
 
