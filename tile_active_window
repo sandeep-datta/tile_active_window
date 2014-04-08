@@ -41,7 +41,6 @@ def _moveResizeActiveWindow(rect):
 def maximizeActiveWindow():
     run(['wmctrl', '-r', ':ACTIVE:', '-b', 'add,maximized_vert,maximized_horz'])
 
-
 def moveResizeActiveWindow(sector, wa, title_bar_height):
     log("sector:{}".format(sector))
 

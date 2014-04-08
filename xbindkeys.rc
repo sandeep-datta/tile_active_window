@@ -54,19 +54,34 @@
 "tile_active_window bottom"
   Mod4 + Down
 
+"tile_active_window left"
+  Mod4 + KP_Left
+
+"tile_active_window top"
+  Mod4 + KP_Up
+
+"tile_active_window right"
+  Mod4 + KP_Right
+
+"tile_active_window bottom"
+  Mod4 + KP_Down
+
+"tile_active_window q2"
+  Mod4 + KP_Home
+
+"tile_active_window q1"
+  Mod4 + KP_Prior
+
 "tile_active_window q3"
   Mod4 + KP_End
 
 "tile_active_window q4"
-  Mod4 + KP_Down
-
-"tile_active_window q2"
-  Mod4 + KP_Left
-
-"tile_active_window q1"
-  Mod4 + KP_Begin
+  Mod4 + KP_Next
 
 "tile_active_window maximize"
+  Mod4 + KP_Begin
+
+"tile_active_window minimize"
   Mod4 + KP_Insert
 
 # set directly keycode (here control + f with my keyboard)
