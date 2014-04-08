@@ -7,6 +7,8 @@ import stat
 import subprocess as subp
 import shutil as sh
 
+from pylib.os import drop_privileges
+
 PRIVILEGED_FILES = [
             ("tile_active_window", "/usr/bin/tile_active_window", 0o755),
         ]
@@ -26,27 +28,6 @@ def copyfile(srcPath, destPath):
 def setPermissions(path, perm):
     print("Setting permissions for {} to {:o}".format(path, perm))
     os.chmod(path, perm)
-
-#Throws OSError exception (it will be thrown when the process is not allowed
-#to switch its effective UID or GID):
-def drop_privileges():
-    if os.getuid() != 0:
-        # We're not root so, like, whatever dude
-        return
-
-    # Get the uid/gid from the name
-    user_name = os.getenv("SUDO_USER")
-    pwnam = pwd.getpwnam(user_name)
-
-    # Remove group privileges
-    os.setgroups([])
-
-    # Try setting the new uid/gid
-    os.setgid(pwnam.pw_gid)
-    os.setuid(pwnam.pw_uid)
-
-    # Ensure a reasonable umask
-    old_umask = os.umask(0o22)
 
 def install_files(srcDir, files):
     #copy files and set permissions
